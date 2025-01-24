@@ -1,10 +1,13 @@
 import { FaUser } from "react-icons/fa";
 import { IoLockClosed, IoMail } from "react-icons/io5";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { IoHome } from "react-icons/io5";
 
 import { useFormik } from "formik";
 import * as Yup from "yup";
+
+import { useAppDispatch, useAppSelector } from "../Redux/reduxHooks";
+import { registerUser } from "../Redux/authSlice";
 
 const SignupSchema = Yup.object().shape({
   username: Yup.string()
@@ -32,6 +35,10 @@ interface FormValues {
 }
 
 const Signup: React.FC = () => {
+  const navigate = useNavigate();
+  const dispatch = useAppDispatch();
+  const { error, loading } = useAppSelector((state) => state.auth);
+
   const formik = useFormik<FormValues>({
     initialValues: {
       username: "",
@@ -41,7 +48,30 @@ const Signup: React.FC = () => {
     },
     validationSchema: SignupSchema,
     onSubmit: async (values) => {
-      console.log(values);
+      try {
+        await dispatch(
+          registerUser({ email: values.email, password: values.password })
+        );
+        alert(`خوش آمدید، ${values.username}!`);
+        navigate("/LoginPage");
+      } catch (error: any) {
+        const firebaseErrorCodes: { [key: string]: string } = {
+          "auth/email-already-in-use": "این ایمیل قبلاً ثبت شده است.",
+          "auth/weak-password": "رمز عبور باید حداقل 6 کاراکتر باشد.",
+          "auth/invalid-email": "ایمیل وارد شده نامعتبر است.",
+          "auth/operation-not-allowed":
+            "عملیات غیرمجاز است. لطفاً با پشتیبانی تماس بگیرید.",
+          "auth/network-request-failed":
+            "خطا در اتصال به سرور. لطفاً اتصال اینترنت خود را بررسی کنید.",
+          "auth/internal-error":
+            "یک خطای داخلی رخ داده است. لطفاً دوباره تلاش کنید.",
+        };
+
+        const errorMessage =
+          firebaseErrorCodes[error.code] ||
+          "خطایی ناشناخته رخ داده است. لطفاً دوباره تلاش کنید.";
+        alert(errorMessage);
+      }
     },
   });
 
@@ -53,6 +83,8 @@ const Signup: React.FC = () => {
       >
         <IoHome />
       </Link>
+      {loading && <div>در حال پردازش...</div>}
+      {error && <div className='text-red-500'>{error}</div>}
       <div className=' w-full max-w-md sm:max-w-lg flex justify-center items-center bg-white/50 rounded-3xl shadow-lg p-6'>
         <form
           onSubmit={formik.handleSubmit}
