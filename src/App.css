@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@100..900&display=swap');
+
 *,
 *::before,
 *::after {
@@ -11,7 +13,7 @@ html {
 }
 
 body {
-  font-family: "Vazirmatn Variable", sans-serif;
+  font-family: "Vazirmatn", serif;
   overflow-x: hidden;
 }
 
