@@ -25,6 +25,7 @@ interface FormValues {
 const Login: React.FC = () => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
+  
   const { error, loading } = useAppSelector((state: any) => state.auth);
 
   const formik = useFormik<FormValues>({
@@ -41,32 +42,28 @@ const Login: React.FC = () => {
         alert("ورود موفقیت آمیز بود!");
         navigate("/");
       } catch (error: any) {
-        let errorMessage = "خطای ناشناخته!";
+        const firebaseErrorCodes: { [key: string]: string } = {
+          "auth/invalid-email": "ایمیل وارد شده معتبر نمی‌باشد.",
+          "auth/user-not-found": "کاربری با این ایمیل پیدا نشد.",
+          "auth/wrong-password": "رمز عبور اشتباه است.",
+          "auth/operation-not-allowed":
+            "عملیات غیرمجاز است. لطفاً با پشتیبانی تماس بگیرید.",
+          "auth/network-request-failed":
+            "خطا در اتصال به سرور. لطفاً اتصال اینترنت خود را بررسی کنید.",
+          "auth/internal-error":
+            "یک خطای داخلی رخ داده است. لطفاً دوباره تلاش کنید.",
+        };
 
-        switch (error) {
-          case "auth/invalid-email":
-            errorMessage = "ایمیل وارد شده معتبر نمی‌باشد.";
-            break;
-          case "auth/user-not-found":
-            errorMessage = "کاربری با این ایمیل پیدا نشد.";
-            break;
-          case "auth/wrong-password":
-            errorMessage = "رمز عبور اشتباه است.";
-            break;
-          case "auth/invalid-credential":
-            errorMessage = "اطلاعات شما مطابقت ندارد.";
-            break;
-          default:
-            errorMessage = "مشکلی پیش آمد. لطفاً دوباره تلاش کنید.";
-        }
-
+        const errorMessage =
+          firebaseErrorCodes[error.code] ||
+          "خطایی ناشناخته رخ داده است. لطفاً دوباره تلاش کنید.";
         alert(errorMessage);
       }
     },
   });
 
   return (
-    <div className='h-screen w-full bg-gradient-to-r from-[#A9C9FF] to-[#FFBBEC] flex justify-center items-center px-4'>
+    <div className='h-screen w-full bg-gradient-to-r from-[#A9C9FF] to-[#FFBBEC] flex flex-col justify-center items-center px-4'>
       <Link
         to='/'
         className='fixed top-0 left-0 text-2xl sm:text-3xl m-2 sm:m-4 cursor-pointer bg-white p-2 rounded-full'

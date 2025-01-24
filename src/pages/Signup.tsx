@@ -37,6 +37,7 @@ interface FormValues {
 const Signup: React.FC = () => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
+  
   const { error, loading } = useAppSelector((state) => state.auth);
 
   const formik = useFormik<FormValues>({

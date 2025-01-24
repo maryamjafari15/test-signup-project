@@ -4,8 +4,8 @@ const Home: React.FC = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="h-screen w-full flex flex-col justify-center items-center bg-cover bg-center bg-[url('/assets/bg.jpg')]">
-      <div className=' w-fit sm:w-3/4 md:w-1/2 h-1/2 sm:h-1/2 bg-white/50  rounded-3xl flex flex-col justify-center items-center p-6 sm:p-10'>
+    <div className="h-screen w-full flex flex-col justify-center items-center bg-cover bg-center bg-[url('/assets/bg.jpg')] px-4">
+      <div className=' w-full  sm:w-3/4 md:w-1/2 h-1/2 sm:h-1/2 bg-white/50  rounded-3xl flex flex-col justify-center items-center p-6 sm:p-10'>
         <h1 className='text-2xl sm:text-3xl font-semibold mb-6 sm:mb-10'>
           {" "}
           سلام ، خوش آمدید!{" "}
