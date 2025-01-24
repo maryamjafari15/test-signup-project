@@ -4,27 +4,26 @@ import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import { PageNotFound } from "./components/PageNotFound";
-
+import '@fontsource-variable/vazirmatn';
 
 function App() {
-
   const router = createBrowserRouter([
     {
       path: "/",
-      element: <Home/>,
-      errorElement:<PageNotFound/>
+      element: <Home />,
+      errorElement: <PageNotFound />,
     },
     {
       path: "/LoginPage",
-      element: <Login/>,
+      element: <Login />,
     },
     {
       path: "/SignupPage",
-      element: <Signup/>,
+      element: <Signup />,
     },
   ]);
 
-  return  <RouterProvider router={router} />
+  return <RouterProvider router={router} />;
 }
 
 export default App;

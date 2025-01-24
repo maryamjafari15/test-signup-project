@@ -1,0 +1,23 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  direction: rtl;
+  text-align: right;
+}
+
+body {
+  font-family: "Vazirmatn Variable", sans-serif;
+  overflow-x: hidden;
+}
+
+.ltr {
+    direction: ltr;
+    text-align: left;
+  }
+  
