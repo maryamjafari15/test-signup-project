@@ -1,10 +1,13 @@
 import { IoMail } from "react-icons/io5";
 import { IoLockClosed } from "react-icons/io5";
 import { IoHome } from "react-icons/io5";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import { useFormik } from "formik";
 import * as Yup from "yup";
+
+import { useAppDispatch, useAppSelector } from "../Redux/reduxHooks";
+import { loginUser } from "../Redux/authSlice";
 
 const SignupSchema = Yup.object().shape({
   email: Yup.string().email("ایمیل معتبر نمی باشد").required("الزامی می باشد"),
@@ -20,6 +23,10 @@ interface FormValues {
 }
 
 const Login: React.FC = () => {
+  const navigate = useNavigate();
+  const dispatch = useAppDispatch();
+  const { error, loading } = useAppSelector((state: any) => state.auth);
+
   const formik = useFormik<FormValues>({
     initialValues: {
       email: "",
@@ -27,7 +34,34 @@ const Login: React.FC = () => {
     },
     validationSchema: SignupSchema,
     onSubmit: async (values) => {
-      console.log(values);
+      try {
+        await dispatch(
+          loginUser({ email: values.email, password: values.password })
+        ).unwrap();
+        alert("ورود موفقیت آمیز بود!");
+        navigate("/");
+      } catch (error: any) {
+        let errorMessage = "خطای ناشناخته!";
+
+        switch (error) {
+          case "auth/invalid-email":
+            errorMessage = "ایمیل وارد شده معتبر نمی‌باشد.";
+            break;
+          case "auth/user-not-found":
+            errorMessage = "کاربری با این ایمیل پیدا نشد.";
+            break;
+          case "auth/wrong-password":
+            errorMessage = "رمز عبور اشتباه است.";
+            break;
+          case "auth/invalid-credential":
+            errorMessage = "اطلاعات شما مطابقت ندارد.";
+            break;
+          default:
+            errorMessage = "مشکلی پیش آمد. لطفاً دوباره تلاش کنید.";
+        }
+
+        alert(errorMessage);
+      }
     },
   });
 
@@ -39,6 +73,8 @@ const Login: React.FC = () => {
       >
         <IoHome />
       </Link>
+      {loading && <div>در حال پردازش...</div>}
+      {error && <div className='text-red-500'>{error}</div>}
 
       <div className='  flex w-full max-w-md sm:max-w-lg justify-center items-center bg-white/50  rounded-3xl shadow-lg p-6'>
         <form
