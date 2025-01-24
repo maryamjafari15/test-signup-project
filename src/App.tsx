@@ -1,15 +1,30 @@
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import "./App.css";
+import Home from "./pages/Home";
+import Login from "./pages/Login";
+import Signup from "./pages/Signup";
+import { PageNotFound } from "./components/PageNotFound";
 
-import './App.css'
 
 function App() {
- 
 
-  return (
-    <div className="text-3xl">
-      salam
-    </div>
-     
-  )
+  const router = createBrowserRouter([
+    {
+      path: "/",
+      element: <Home/>,
+      errorElement:<PageNotFound/>
+    },
+    {
+      path: "/LoginPage",
+      element: <Login/>,
+    },
+    {
+      path: "/SignupPage",
+      element: <Signup/>,
+    },
+  ]);
+
+  return  <RouterProvider router={router} />
 }
 
-export default App
+export default App;
