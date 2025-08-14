@@ -1,63 +1,73 @@
-# مستندات پروژه ثبت‌نام
+Sign-Up Project Documentation
+Introduction
 
-## مقدمه
+This project is a web application for user registration and login, built with various modern technologies.
+In this documentation, we will describe the development steps and explain how to use the application in detail.
 
-این پروژه یک برنامه تحت وب برای ثبت‌نام و ورود کاربران است که از تکنولوژی‌های مختلفی استفاده می‌کند. در این مستند، مراحل انجام پروژه و نحوه استفاده از آن به تفصیل توضیح داده شده است.
+Technologies & Tools Used
 
----
+TypeScript – For static typing and improving code quality.
 
-## تکنولوژی‌ها و ابزارهای مورد استفاده
+Tailwind CSS – For fast and efficient UI design and styling.
 
-1. **TypeScript**: برای بهره‌گیری از تایپ‌های استاتیک و بهبود کیفیت کدنویسی
-2. **Tailwind CSS**: برای طراحی رابط کاربری و استایل‌دهی سریع و کارآمد
-3. **React Router DOM**: برای مدیریت مسیرها و صفحه‌بندی در برنامه
-4. **Formik و Yup**: برای ساخت فرم‌ها و اعتبارسنجی داده‌های ورودی
-5. **Firebase**: به‌عنوان سرور برای ذخیره‌سازی داده‌ها و احراز هویت کاربران
-6. **Redux**: برای مدیریت وضعیت
+React Router DOM – For routing and page navigation.
 
----
+Formik & Yup – For building forms and validating user inputs.
 
-## مراحل انجام پروژه
+Firebase – As the backend service for data storage and user authentication.
 
-### 1. نصب TypeScript
+Redux – For state management.
 
-### 2. نصب و پیکربندی Tailwind CSS
+Project Development Steps
+1. Installing TypeScript
 
-### 3. استفاده از React Router DOM
+TypeScript was installed to add static typing and improve development efficiency.
 
-### 4. ایجاد صفحات و طراحی رابط کاربری
+2. Installing & Configuring Tailwind CSS
 
-صفحات مورد نیاز شامل:
+Tailwind CSS was set up to style the application with responsive and modern UI components.
 
-- صفحه ثبت‌نام (Sign Up)
-- صفحه ورود (Login)
-- خانه (homePage)
+3. Using React Router DOM
 
-### 5. استفاده از Formik و Yup
+React Router DOM was used to create and manage application routes.
 
-برای ساخت فرم‌های ثبت‌نام و ورود و همچنین اعتبارسنجی داده‌های ورودی، از کتابخانه‌های Formik و Yup استفاده شد. نصب این ابزارها به صورت زیر انجام شد:
+4. Creating Pages & UI Design
 
-```bash
+The application contains the following pages:
+
+Sign-Up Page
+
+Login Page
+
+Home Page
+
+5. Using Formik & Yup
+
+Formik and Yup were used to build and validate registration and login forms.
+
+Install Formik and Yup:
+
 npm install formik yup
-```
 
-با استفاده از Yup، قوانین اعتبارسنجی برای فیلدهای فرم تعریف شدند. مثال:
 
-```typescript
+Example import for Yup validation:
+
 import * as Yup from "yup";
-```
 
-### 6. استفاده از Firebase
 
-Firebase به عنوان سرور این پروژه استفاده شده است. این سرویس برای ذخیره اطلاعات کاربران و احراز هویت استفاده می‌شود. ابتدا Firebase به پروژه اضافه شد:
+Validation rules were created to ensure correct and secure form data submission.
 
-```bash
+6. Using Firebase
+
+Firebase was used as the backend to store user data and handle authentication.
+
+Install Firebase:
+
 npm install firebase
-```
 
-سپس پروژه در کنسول Firebase ایجاد شد و اطلاعات تنظیمات آن در پروژه وارد گردید. مثال کد اتصال:
 
-```typescript
+Firebase was configured by adding the project settings from the Firebase Console:
+
 import { initializeApp } from "firebase/app";
 
 const firebaseConfig = {
@@ -70,51 +80,47 @@ const firebaseConfig = {
 };
 
 initializeApp(firebaseConfig);
-```
 
-اطلاعات کاربران در Firebase Authentication ذخیره می‌شوند و داده‌ها در Realtime Database یا Firestore مدیریت می‌گردند.
 
-### 7. مدیریت وضعیت با Redux
+User authentication is handled via Firebase Authentication, and data can be stored in Realtime Database or Firestore.
 
-برای مدیریت وضعیت (State) در برنامه، از Redux استفاده شد. ابتدا Redux و ابزارهای مرتبط نصب شدند:
+7. State Management with Redux
 
-```bash
+Redux was used to manage application state.
+
+Install Redux Toolkit and React Redux:
+
 npm install @reduxjs/toolkit react-redux
-```
 
----
+Project Features
 
-## قابلیت‌های پروژه
+Register new users and store their data in Firebase.
 
-- ثبت‌نام کاربران جدید و ذخیره اطلاعات آن‌ها در Firebase.
-- ورود کاربران با اطلاعات ثبت‌شده و بررسی اعتبار آن‌ها.
-- طراحی رابط کاربری زیبا و ریسپانسیو با استفاده از Tailwind CSS.
-- مدیریت وضعیت کاربران با Redux.
-- اعتبارسنجی فرم‌ها با استفاده از Yup و جلوگیری از ورود اطلاعات نامعتبر.
+Log in users with stored credentials and validate them.
 
----
+Responsive and visually appealing UI with Tailwind CSS.
 
-## نحوه اجرای پروژه
+Manage global application state using Redux.
 
-1. پروژه را کلون کنید:
+Form validation with Yup to prevent invalid inputs.
 
-```bash
+How to Run the Project
+
+Clone the repository:
+
 git clone https://github.com/your-repo/signup-project.git
-```
 
-2. وارد پوشه پروژه شوید و وابستگی‌ها را نصب کنید:
 
-```bash
+Navigate to the project folder and install dependencies:
+
 cd signup-project
 npm install
-```
 
-3. پروژه را اجرا کنید:
 
-```bash
+Start the development server:
+
 npm run dev
-```
 
-4. پروژه در مرورگر به صورت پیش‌فرض در آدرس `http://localhost:5173` در دسترس خواهد بود.
 
----
+Open the project in your browser at:
+http://localhost:5173
